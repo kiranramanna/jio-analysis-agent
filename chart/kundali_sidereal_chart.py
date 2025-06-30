@@ -44,6 +44,7 @@ class ChartInputData(BaseModel):
     place: str
     latitude: float
     longitude: float
+    ayanamsa_mode: Optional[int] = None
 
 class KundaliSiderealChart(object):
     
@@ -59,7 +60,7 @@ class KundaliSiderealChart(object):
         self.lagnaDec = 0
         swe.set_ephe_path(os.path.dirname(os.path.abspath(__file__))+"/jhcore/ephe") # set path to ephemeris files
         # swe.set_sid_mode(AYANAMSHA_RAMAN)
-        swe.set_sid_mode(AYANAMSHA_LAHIRI)
+        swe.set_sid_mode(kundali_obj.ayanamsa_mode if kundali_obj.ayanamsa_mode is not None else AYANAMSHA_LAHIRI)
         # swe.set_sid_mode(AYANAMSHA_TRUE_PUSHYA)
         
         # Add Vimshottari Dasha periods for each planet
